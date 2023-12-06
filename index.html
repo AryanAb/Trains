@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+	<title>Train.net</title>
+	<style>
+		body {
+			margin: 0;
+		}
+		.container {
+			display: flex; 
+			justify-content: center; 
+			align-items: center; 
+			height: 100vh;
+			width: 99vw;
+		}
+		form {
+			display: flex; 
+			flex-direction: column; 
+			justify-content: center;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<form id="speedForm" action="">
+			<label for="trainNumber">Train Number:</label><br>
+			<input type="number" id="trainNumber" name="trainNumber" min="1" max="99">
+			<label for="trainSpeed">Train Speed:</label>
+			<input type="number" id="trainSpeed" name="trainSpeed" min="0" max="14">
+			<input type="submit" value="Submit" />
+		</form>
+	</div>
+
+	<script>
+		const speedForm = document.getElementById("speedForm");
+		speedForm.addEventListener("submit", (e) => {
+			e.preventDefault();
+			console.log("from submitted");
+			const trainNumber = parseInt(document.getElementById("trainNumber").value);
+			const trainSpeed = parseInt(document.getElementById("trainSpeed").value);
+			data = { number: trainNumber, speed: trainSpeed };
+			fetch("http://localhost:3000/train_speed", {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(data),
+			});
+		});
+	</script>
+</body>
+
+</html>
