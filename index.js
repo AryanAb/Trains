@@ -4,6 +4,10 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { WebSocketServer } from "ws";
 
+const TR = 1 << 8;
+const RV = 2;
+const SW = 4;
+
 const app = express();
 app.use(express.json());
 const server = createServer(app);
@@ -43,14 +47,20 @@ app.get("/sensors", (req, res) => {
     html += `<li>${sensor}</li>`;
   }
   html += "</ul>";
-  console.log(html);
   res.send(html);
 });
 
 app.put("/train_speed", (req, res) => {
-  const data = req.body;
+  const { train, speed } = req.body;
+  message = {
+    type: TR,
+    data: {
+      train,
+      speed,
+    },
+  };
   if (WS) {
-    WS.send(Buffer.from(JSON.stringify(data)));
+    WS.send(Buffer.from(JSON.stringify(message)));
   }
 });
 
