@@ -23,7 +23,11 @@ function sensor_id_to_name(id) {
 wss.on("connection", (ws) => {
   WS = ws;
   ws.on("message", (data) => {
-    parsed = JSON.parse(data);
+    try {
+      var parsed = JSON.parse(data);
+    } catch (err) {
+      console.error(err);
+    }
     sensors.push(sensor_id_to_name(parsed.sensor_id));
   });
 });
