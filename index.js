@@ -21,10 +21,11 @@ function sensor_id_to_name(id) {
 }
 
 wss.on("connection", (ws) => {
+  sensors = [];
   WS = ws;
   ws.on("message", (data) => {
     try {
-      var parsed = JSON.parse(data);
+      var parsed = JSON.parse(data.toString());
     } catch (err) {
       console.error(err);
     }
@@ -36,15 +37,15 @@ app.get("/", (req, res) => {
   res.sendFile(join(__dirname, "index.html"));
 });
 
-// app.get("/sensors", (req, res) => {
-//   let html = "<ul>";
-//   for (const sensor of sensors) {
-//     html += `<li>${sensor}</li>`;
-//   }
-//   html += "</ul>";
-//   console.log(html);
-//   res.send(html);
-// });
+app.get("/sensors", (req, res) => {
+  let html = "<ul>";
+  for (const sensor of sensors) {
+    html += `<li>${sensor}</li>`;
+  }
+  html += "</ul>";
+  console.log(html);
+  res.send(html);
+});
 
 app.put("/train_speed", (req, res) => {
   const data = req.body;
