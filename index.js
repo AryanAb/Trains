@@ -12,17 +12,35 @@ const wss = new WebSocketServer({ server });
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 let WS = null;
+let sensors = [];
+
+function sensor_id_to_name(id) {
+  return (
+    String.fromCharCode(Math.floor(id / 16) + 65) + ((id % 16) + 1).toString()
+  );
+}
 
 wss.on("connection", (ws) => {
   WS = ws;
   ws.on("message", (data) => {
-    console.log(`received: ${data}`);
+    parsed = JSON.parse(data);
+    sensors.push(sensor_id_to_name(parsed.sensor_id));
   });
 });
 
 app.get("/", (req, res) => {
   res.sendFile(join(__dirname, "index.html"));
 });
+
+// app.get("/sensors", (req, res) => {
+//   let html = "<ul>";
+//   for (const sensor of sensors) {
+//     html += `<li>${sensor}</li>`;
+//   }
+//   html += "</ul>";
+//   console.log(html);
+//   res.send(html);
+// });
 
 app.put("/train_speed", (req, res) => {
   const data = req.body;

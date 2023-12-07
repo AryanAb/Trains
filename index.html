@@ -4,6 +4,7 @@
 <head>
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<title>Train.net</title>
 	<style>
 		body {
@@ -11,7 +12,8 @@
 		}
 		.container {
 			display: flex; 
-			justify-content: center; 
+			justify-content: space-evenly;
+			flex-direction: row;
 			align-items: center; 
 			height: 100vh;
 			width: 99vw;
@@ -33,6 +35,9 @@
 			<input type="number" id="trainSpeed" name="trainSpeed" min="0" max="14">
 			<input type="submit" value="Submit" />
 		</form>
+
+		<div id="sensors">
+		</div>
 	</div>
 
 	<script>
@@ -43,7 +48,7 @@
 			const trainNumber = parseInt(document.getElementById("trainNumber").value);
 			const trainSpeed = parseInt(document.getElementById("trainSpeed").value);
 			data = { number: trainNumber, speed: trainSpeed };
-			fetch("http://localhost:3000/train_speed", {
+			fetch("/train_speed", {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
@@ -51,6 +56,12 @@
 				body: JSON.stringify(data),
 			});
 		});
+
+		setInterval(() => {
+			$.get("/sensors", (data) => {
+				$("#sensors").html(data);
+			});
+		}, 1000);
 	</script>
 </body>
 
