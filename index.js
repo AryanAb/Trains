@@ -51,6 +51,7 @@ app.get("/sensors", (req, res) => {
 });
 
 app.put("/train_speed", (req, res) => {
+  console.log('req', req.body)
   const { train, speed } = req.body;
   const message = {
     type: TR,
@@ -62,6 +63,7 @@ app.put("/train_speed", (req, res) => {
   if (WS) {
     WS.send(Buffer.from(JSON.stringify(message)));
   }
+  res.send({});
 });
 
 server.listen(80, () => {
