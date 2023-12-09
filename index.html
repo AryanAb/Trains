@@ -29,10 +29,21 @@
 <body>
 	<div class="container">
 		<form id="speedForm" action="">
-			<label for="trainNumber">Train Number:</label><br>
+			<label for="trainNumber">Train Number:</label>
 			<input type="number" id="trainNumber" name="trainNumber" min="1" max="99">
 			<label for="trainSpeed">Train Speed:</label>
 			<input type="number" id="trainSpeed" name="trainSpeed" min="0" max="14">
+			<input type="submit" value="Submit" />
+		</form>
+
+		<form id="switchForm" action="" style="display: block;">
+			<label for="switchNumber">Switch Number:</label>
+			<input type="number" id="switchNumber" name="switchNumber">
+			<label>Switch Direction:</label>
+			<input type="radio" id="Straight" name="direction" value="Straight">
+			<label for="Straight">Straight</label>
+			<input type="radio" id="Curved" name="direction" value="Curved">
+			<label for="Curved">Curved</label>
 			<input type="submit" value="Submit" />
 		</form>
 
@@ -44,8 +55,7 @@
 		const speedForm = document.getElementById("speedForm");
 		speedForm.addEventListener("submit", (e) => {
 			e.preventDefault();
-			console.log("from submitted");
-			const trainNumber = parseInt(document.getElementById("trainNumber").value);
+			const trainNumber = parseInt(document.getElementById("switchNumber").value);
 			const trainSpeed = parseInt(document.getElementById("trainSpeed").value);
 			data = { train: trainNumber, speed: trainSpeed };
       fetch("/train_speed", {
@@ -56,6 +66,21 @@
         body: JSON.stringify(data),
       });
 		});
+
+		const switchForm = document.getElementById("switchForm");
+		switchForm.addEventListener("submit", (e) => {
+				e.preventDefault();
+				const switchNumber = parseInt(document.getElementById("switchNumber").value);
+				const switchDirection = document.querySelector('input[name="direction"]:checked').value === "Curved";
+				data = { number: switchNumber, direction: switchDirection };
+				fetch("/switch", {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(data),
+				});
+			});
 
 		setInterval(() => {
 			$.get("/sensors", (data) => {

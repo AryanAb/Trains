@@ -6,7 +6,7 @@ import { WebSocketServer } from "ws";
 
 const TR = 1 << 8;
 const RV = 2;
-const SW = 4;
+const SW = 1 << 9;
 
 const app = express();
 app.use(express.json());
@@ -51,7 +51,6 @@ app.get("/sensors", (req, res) => {
 });
 
 app.put("/train_speed", (req, res) => {
-  console.log('req', req.body)
   const { train, speed } = req.body;
   const message = {
     type: TR,
@@ -60,6 +59,22 @@ app.put("/train_speed", (req, res) => {
       speed,
     },
   };
+  if (WS) {
+    WS.send(Buffer.from(JSON.stringify(message)));
+  }
+  res.send({});
+});
+
+app.put("/switch", (req, res) => {
+  const { number, direction } = req.body;
+  const message = {
+    type: SW,
+    date: {
+      number,
+      direction,
+    },
+  };
+  console.log(message);
   if (WS) {
     WS.send(Buffer.from(JSON.stringify(message)));
   }
