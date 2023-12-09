@@ -71,7 +71,7 @@
 		switchForm.addEventListener("submit", (e) => {
 				e.preventDefault();
 				const switchNumber = parseInt(document.getElementById("switchNumber").value);
-				const switchDirection = document.querySelector('input[name="direction"]:checked').value === "Curved";
+				const switchDirection = document.querySelector('input[name="direction"]:checked').value === "Curved" ? 1 : 0;
 				data = { switch_id: switchNumber, state: switchDirection };
 				fetch("/switch", {
 					method: "PUT",
