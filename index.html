@@ -55,7 +55,7 @@
 		const speedForm = document.getElementById("speedForm");
 		speedForm.addEventListener("submit", (e) => {
 			e.preventDefault();
-			const trainNumber = parseInt(document.getElementById("switchNumber").value);
+			const trainNumber = parseInt(document.getElementById("trainNumber").value);
 			const trainSpeed = parseInt(document.getElementById("trainSpeed").value);
 			data = { train: trainNumber, speed: trainSpeed };
       fetch("/train_speed", {
