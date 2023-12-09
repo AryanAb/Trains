@@ -52,7 +52,7 @@ app.get("/sensors", (req, res) => {
 
 app.put("/train_speed", (req, res) => {
   const { train, speed } = req.body;
-  message = {
+  const message = {
     type: TR,
     data: {
       train,

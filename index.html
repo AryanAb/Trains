@@ -47,7 +47,7 @@
 			console.log("from submitted");
 			const trainNumber = parseInt(document.getElementById("trainNumber").value);
 			const trainSpeed = parseInt(document.getElementById("trainSpeed").value);
-			data = { number: trainNumber, speed: trainSpeed };
+			data = { train: trainNumber, speed: trainSpeed };
 			fetch("/train_speed", {
 				method: "PUT",
 				headers: {
