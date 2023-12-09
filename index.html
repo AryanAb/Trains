@@ -48,13 +48,13 @@
 			const trainNumber = parseInt(document.getElementById("trainNumber").value);
 			const trainSpeed = parseInt(document.getElementById("trainSpeed").value);
 			data = { train: trainNumber, speed: trainSpeed };
-			fetch("/train_speed", {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(data),
-			});
+      fetch("/train_speed", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 		});
 
 		setInterval(() => {
