@@ -72,7 +72,7 @@
 				e.preventDefault();
 				const switchNumber = parseInt(document.getElementById("switchNumber").value);
 				const switchDirection = document.querySelector('input[name="direction"]:checked').value === "Curved";
-				data = { number: switchNumber, direction: switchDirection };
+				data = { switch_id: switchNumber, state: switchDirection };
 				fetch("/switch", {
 					method: "PUT",
 					headers: {

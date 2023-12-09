@@ -69,7 +69,7 @@ app.put("/switch", (req, res) => {
   const { switch_id, state } = req.body;
   const message = {
     type: SW,
-    date: {
+    data: {
       switch_id,
       state,
     },
