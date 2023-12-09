@@ -66,12 +66,12 @@ app.put("/train_speed", (req, res) => {
 });
 
 app.put("/switch", (req, res) => {
-  const { number, direction } = req.body;
+  const { switch_id, state } = req.body;
   const message = {
     type: SW,
     date: {
-      number,
-      direction,
+      switch_id,
+      state,
     },
   };
   console.log(message);
