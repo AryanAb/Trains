@@ -9,19 +9,28 @@
 	<style>
 		body {
 			margin: 0;
+			overflow: hidden;
 		}
 		.container {
 			display: flex; 
 			justify-content: space-evenly;
-			flex-direction: row;
+			flex-direction: column;
 			align-items: center; 
 			height: 100vh;
-			width: 99vw;
+			width: 97vw;
 		}
 		form {
 			display: flex; 
 			flex-direction: column; 
 			justify-content: center;
+		}
+
+		ul {
+			display: flex;
+			padding: 0;
+		}
+		ul > li {
+			margin: 15px;
 		}
 	</style>
 </head>
@@ -36,14 +45,16 @@
 			<input type="submit" value="Submit" />
 		</form>
 
-		<form id="switchForm" action="" style="display: block;">
+		<form id="switchForm" action="">
 			<label for="switchNumber">Switch Number:</label>
 			<input type="number" id="switchNumber" name="switchNumber">
-			<label>Switch Direction:</label>
-			<input type="radio" id="Straight" name="direction" value="Straight">
-			<label for="Straight">Straight</label>
-			<input type="radio" id="Curved" name="direction" value="Curved">
-			<label for="Curved">Curved</label>
+			<div>
+				<label>Switch Direction:</label>
+				<input type="radio" id="Straight" name="direction" value="Straight">
+				<label for="Straight">Straight</label>
+				<input type="radio" id="Curved" name="direction" value="Curved">
+				<label for="Curved">Curved</label>
+			</div>
 			<input type="submit" value="Submit" />
 		</form>
 
@@ -58,13 +69,13 @@
 			const trainNumber = parseInt(document.getElementById("trainNumber").value);
 			const trainSpeed = parseInt(document.getElementById("trainSpeed").value);
 			data = { train: trainNumber, speed: trainSpeed };
-      fetch("/train_speed", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+			fetch("/train_speed", {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(data),
+			});
 		});
 
 		const switchForm = document.getElementById("switchForm");

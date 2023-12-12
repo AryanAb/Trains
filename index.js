@@ -33,6 +33,9 @@ wss.on("connection", (ws) => {
     } catch (err) {
       console.error(err);
     }
+    if (sensors.length === 7) {
+      sensors.shift();
+    }
     sensors.push(sensor_id_to_name(parsed.sensor_id));
   });
 });
